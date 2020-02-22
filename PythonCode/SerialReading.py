@@ -9,7 +9,7 @@ push data sends the dictionary to the table
 
 import serial
 import time
-from data_to_sent import data_sent
+from PythonCode.data_to_sent import data_sent
 from rethinkdb import RethinkDB
 
 r = RethinkDB()

@@ -1,7 +1,6 @@
-
-
-
 import datetime
+
+
 class data_sent:
     def __init__(self, data):
         self.rpm = data[0] << 8 + data[1]
