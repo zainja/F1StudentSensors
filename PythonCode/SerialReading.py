@@ -12,8 +12,8 @@ import time
 from PythonCode.data_to_sent import data_sent
 from rethinkdb import RethinkDB
 
-r = RethinkDB()
-conn = r.connect("localhost", 28015).repl()
+# r = RethinkDB()
+# conn = r.connect("localhost", 28015).repl()
 RESET_TIME = 30
 DATA_LEN = 13
 SYNC_TIMES = 10
@@ -25,13 +25,14 @@ data = []
 
 def push_data(data_dict):
     print(data_dict)
-    r.db("F1_data").table("sensor_data").insert(data_dict).run()
+    # r.db("F1_data").table("sensor_data").insert(data_dict).run()
 
 
 def parse_data(data_to_be_sent):
-    print(data_to_be_sent)
+    # print(data_to_be_sent)
     data_obj = data_sent(data_to_be_sent)
-    push_data(data_obj.return_dict())
+    print(data_obj.return_dict())
+    # push_data(data_obj.return_dict())
 
 
 while True:
