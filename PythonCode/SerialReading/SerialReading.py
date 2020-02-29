@@ -26,13 +26,13 @@ SYNC_TIMES = 10
 synced = 0
 
 '''
-enter the number for the os
+detect the OS
 '''
 if sys.platform.startswith('linux'):
     print("Linux")
     ARDUINO_PATH = '/dev/ttyACM1'
 elif sys.platform.startswith('win'):
-    ARDUINO_PATH = 'COM1'
+    ARDUINO_PATH = 'COM3'
 elif sys.platform.startswith('darwin'):
     ARDUINO_PATH = '/dev/tty.usbmodemfa141'
 
