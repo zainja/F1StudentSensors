@@ -9,30 +9,51 @@ push data sends the dictionary to the table
 
 import serial
 import time
-from PythonCode.data_to_sent import data_sent
+from PythonCode.SerialReading.data_to_sent import data_sent
 from rethinkdb import RethinkDB
+import sys
 
-# r = RethinkDB()
-# conn = r.connect("localhost", 28015).repl()
+r = RethinkDB()
+try:
+    conn = r.connect("localhost", 28015).repl()
+except ConnectionError:
+    exit(0)
+
+ARDUINO_PATH = ""
 RESET_TIME = 30
 DATA_LEN = 13
 SYNC_TIMES = 10
 synced = 0
-serial_port = serial.Serial('/dev/ttyACM1', 9600)
+
+'''
+enter the number for the os
+'''
+if sys.platform.startswith('linux'):
+    print("Linux")
+    ARDUINO_PATH = '/dev/ttyACM1'
+elif sys.platform.startswith('win'):
+    ARDUINO_PATH = 'COM1'
+elif sys.platform.startswith('darwin'):
+    ARDUINO_PATH = '/dev/tty.usbmodemfa141'
+
+try:
+    serial_port = serial.Serial(ARDUINO_PATH, 9600)
+except IOError:
+    print("IO error")
 last_time = 0
 data = []
 
 
 def push_data(data_dict):
     print(data_dict)
-    # r.db("F1_data").table("sensor_data").insert(data_dict).run()
+    r.db("F1_data").table("sensor_data").insert(data_dict).run()
 
 
 def parse_data(data_to_be_sent):
-    # print(data_to_be_sent)
+    print(data_to_be_sent)
     data_obj = data_sent(data_to_be_sent)
     print(data_obj.return_dict())
-    # push_data(data_obj.return_dict())
+    push_data(data_obj.return_dict())
 
 
 while True:

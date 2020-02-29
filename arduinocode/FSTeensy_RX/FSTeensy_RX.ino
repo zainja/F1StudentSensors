@@ -4,7 +4,7 @@
 
 XBee xbee = XBee();
 XBeeResponse response = XBeeResponse();
-// create reusable response objects for responses we expect to handle 
+// create reusable response objects for responses we expect to handle
 ZBRxResponse rx = ZBRxResponse();
 ModemStatusResponse msr = ModemStatusResponse();
 
@@ -26,20 +26,20 @@ void loop() {
   // put your main code here, to run repeatedly:
 
   xbee.readPacket();
-    
+
     if (xbee.getResponse().isAvailable()) {
-      
+
       // got something
-      
+
       if (xbee.getResponse().getApiId() == ZB_RX_RESPONSE) {
         // got a zb rx packet
-        
+
         // now fill our zb rx class
         xbee.getResponse().getZBRxResponse(rx);
-            
+
         if (rx.getOption() == ZB_PACKET_ACKNOWLEDGED) {
             // the sender got an ACK
-          
+
         } else {
             // we got it (obviously) but sender didn't get an ACK
 
@@ -64,7 +64,7 @@ void loop() {
       } else if (xbee.getResponse().getApiId() == MODEM_STATUS_RESPONSE) {
         xbee.getResponse().getModemStatusResponse(msr);
         // the local XBee sends this response on certain events, like association/dissociation
-        
+
         if (msr.getStatus() == ASSOCIATED) {
           // yay this is great.  flash led
 
@@ -77,16 +77,16 @@ void loop() {
         }
       } else {
         // not something we were expecting
-   
+
       }
     } else if (xbee.getResponse().isError()) {
-      //nss.print("Error reading packet.  Error code: ");  
+      //nss.print("Error reading packet.  Error code: ");
       //nss.println(xbee.getResponse().getErrorCode());
     }
 
     if (USBtransmitMetro.check()) {
 
-      
+
       dataIn[12] = 1000 / (millis() - lastMessage);
 
 
