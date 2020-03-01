@@ -15,10 +15,10 @@ import sys
 
 r = RethinkDB()
 try:
-    conn = r.connect("localhost", 28015).repl()
-except ConnectionError:
+    conn = r.connect("sam.soon.it", 8912).repl()
+except:
     exit(0)
-
+print("Server connected")
 ARDUINO_PATH = ""
 RESET_TIME = 30
 DATA_LEN = 13
@@ -39,7 +39,9 @@ elif sys.platform.startswith('darwin'):
 try:
     serial_port = serial.Serial(ARDUINO_PATH, 9600)
 except IOError:
-    print("IO error")
+        print("IO error")
+        exit(0)
+
 last_time = 0
 data = []
 
