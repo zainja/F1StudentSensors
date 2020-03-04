@@ -15,8 +15,10 @@ import sys
 
 r = RethinkDB()
 try:
-    conn = r.connect("sam.soon.it", 8912).repl()
+    # conn = r.connect("sam.soon.it", 8912).repl()
+    conn = r.connect("localhost", 28015).repl()
 except:
+    print("pr")
     exit(0)
 print("Server connected")
 ARDUINO_PATH = ""
@@ -30,7 +32,7 @@ detect the OS
 '''
 if sys.platform.startswith('linux'):
     print("Linux")
-    ARDUINO_PATH = '/dev/ttyACM1'
+    ARDUINO_PATH = '/dev/ttyACM0'
 elif sys.platform.startswith('win'):
     ARDUINO_PATH = 'COM3'
 elif sys.platform.startswith('darwin'):
@@ -59,7 +61,9 @@ def parse_data(data_to_be_sent):
 
 
 while True:
+    print('detected')
     byte = serial_port.read(1)[0]
+    print(byte)
     dt = (time.time() * 1000) - last_time
     last_time += dt
 

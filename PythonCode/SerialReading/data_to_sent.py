@@ -3,9 +3,9 @@ import datetime
 
 class data_sent:
     def __init__(self, data):
-        self.rpm = data[0] << 8 + data[1]
-        self.speed10 = data[11] << 8 + data[10]
-        self.fuel_pressure = (data[3] << 8 + data[12])/100
+        self.rpm = (data[0] << 8) + data[1]
+        self.speed10 = (data[11] << 8) + data[10]
+        self.fuel_pressure = ((data[3] << 8) + data[12])/100
         self.wt = data[5]
         self.tps = data[9]
         self.a_t = data[7]
